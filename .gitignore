@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Vite build output
+dist/
+
+# Environment variables
+.env
+.env.*.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE/editor specific
+.vscode/
+.idea/
+
+# Optional: local preview cache
+*.local
