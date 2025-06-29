@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* index.css ya App.css */
+
+:root {
+  --primary-color: #5F6FFF;
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+  
+}
+
+
 .active hr{
     @apply block
 }
