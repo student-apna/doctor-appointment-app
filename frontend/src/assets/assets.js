@@ -1,11 +1,15 @@
 
 import logo from './logo.svg'
+import profile_pic from './profile_pic.jpg'
+import dropdown_icon from './dropdown_icon.svg'
 
 
 
 
 export const assets = {
   
-    logo
+    logo,
+    profile_pic,
+    dropdown_icon
     
 }
