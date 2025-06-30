@@ -12,6 +12,9 @@ export default defineConfig({
           colors: {
             primary: '#5F6FFF',
           },
+          gridTemplateColums:{
+            'auto':'repeat(auto-fill,minmax(200px,1fr))'
+          }
         },
       },
     }),
