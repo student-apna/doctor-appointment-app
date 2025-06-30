@@ -16,6 +16,7 @@ const Header = () => {
              </p>
 
           </div>
+          {/* {-----speciality Doctors wala section}--- */}
           <a href="#speciality" className='flex items-center gap-2  bg-white px-8 py-3 rounded-full text-gary-600 text-sm m-auto  md:m-0 hover:scale-105 transition-all duration-200'>
             Book appointment <img src={assets.arrow_icon} className='w-3' alt="" />
           </a>
