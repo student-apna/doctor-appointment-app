@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 import { AppContext } from '../context/AppContext';
 import DoctorDetails from '../components/DoctorDetails';
 import BookingSlots from '../components/BookingSlots';
+import RelatedDoctors from '../components/RelatedDoctors';
 const Appointment = () => {
 
   const {docId} = useParams();
@@ -110,6 +111,10 @@ const Appointment = () => {
         setSlotTime={setSlotTime}
         daysOfWeek={daysOfWeek}
         />
+
+        {/* ----- Listing Related Doctors------ */}
+
+        <RelatedDoctors  docId={docId} speciality = {docInfo.speciality} />
 
 
     </div>
