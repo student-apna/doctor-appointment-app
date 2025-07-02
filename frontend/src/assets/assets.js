@@ -32,6 +32,8 @@ import doc15 from './doc15.png'
 
 import appointment_img from './appointment_img.png'
 import my_photo from './my_photo.png'
+import verified_icon from './verified_icon.svg'
+import info_icon from './info_icon.svg'
 
 
 
@@ -45,7 +47,9 @@ export const assets = {
     arrow_icon,
     doctors_img,
     appointment_img,
-    my_photo
+    my_photo,
+    verified_icon,
+    info_icon
     
 }
 
