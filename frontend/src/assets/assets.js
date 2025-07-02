@@ -31,6 +31,7 @@ import doc14 from './doc14.png'
 import doc15 from './doc15.png'
 
 import appointment_img from './appointment_img.png'
+import my_photo from './my_photo.png'
 
 
 
@@ -44,6 +45,7 @@ export const assets = {
     arrow_icon,
     doctors_img,
     appointment_img,
+    my_photo
     
 }
 
@@ -69,7 +71,7 @@ export const specialityData = [
         image:Neurologist
     },
     {
-        speciality:' Gastroenterologist',
+        speciality:'Gastroenterologist',
         image: Gastroenterologist
     },
 
@@ -95,7 +97,7 @@ export const doctors = [
     },
     {
         _id: 'doc2',
-        name: 'Dr. Emily Larson',
+        name: 'Dr. Ranjana Sharma',
         image: doc2,
         speciality: 'Gynecologist',
         degree: 'MBBS',
@@ -109,7 +111,7 @@ export const doctors = [
     },
     {
         _id: 'doc3',
-        name: 'Dr. Sarah Patel',
+        name: 'Dr. Altaf Khan',
         image: doc3,
         speciality: 'Dermatologist',
         degree: 'MBBS',
@@ -123,7 +125,7 @@ export const doctors = [
     },
     {
         _id: 'doc4',
-        name: 'Dr. Christopher Lee',
+        name: 'Dr. Y. K. Amdekar',
         image: doc4,
         speciality: 'Pediatricians',
         degree: 'MBBS',
@@ -151,7 +153,7 @@ export const doctors = [
     },
     {
         _id: 'doc6',
-        name: 'Dr. Andrew Williams',
+        name: 'Dr. B. S. Singhal',
         image: doc6,
         speciality: 'Neurologist',
         degree: 'MBBS',
@@ -165,7 +167,7 @@ export const doctors = [
     },
     {
         _id: 'doc7',
-        name: 'Dr. Christopher Davis',
+        name: 'Dr. Devi Shetty',
         image: doc7,
         speciality: 'General physician',
         degree: 'MBBS',
@@ -179,7 +181,7 @@ export const doctors = [
     },
     {
         _id: 'doc8',
-        name: 'Dr. Timothy White',
+        name: 'Dr. Deepak Rao',
         image: doc8,
         speciality: 'Gynecologist',
         degree: 'MBBS',
@@ -193,7 +195,7 @@ export const doctors = [
     },
     {
         _id: 'doc9',
-        name: 'Dr. Ava Mitchell',
+        name: 'Dr. Usba Khan',
         image: doc9,
         speciality: 'Dermatologist',
         degree: 'MBBS',
@@ -249,7 +251,7 @@ export const doctors = [
     },
     {
         _id: 'doc13',
-        name: 'Dr. Chloe Evans',
+        name: 'Dr. Aruna Sharma',
         image: doc13,
         speciality: 'General physician',
         degree: 'MBBS',
@@ -263,7 +265,7 @@ export const doctors = [
     },
     {
         _id: 'doc14',
-        name: 'Dr. Ryan Martinez',
+        name: 'Dr. Hrishikesh Pai',
         image: doc14,
         speciality: 'Gynecologist',
         degree: 'MBBS',
@@ -279,7 +281,7 @@ export const doctors = [
         _id: 'doc15',
         name: 'Dr. Amelia Hill',
         image: doc15,
-        speciality: 'Dermatologist',
+        speciality: 'Gastroenterologist',
         degree: 'MBBS',
         experience: '1 Years',
         about: 'Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies. Dr. Davis has a strong commitment to delivering comprehensive medical care, focusing on preventive medicine, early diagnosis, and effective treatment strategies.',
