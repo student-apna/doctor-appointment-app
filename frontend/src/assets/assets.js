@@ -37,6 +37,9 @@ import verified_icon from './verified_icon.svg'
 import info_icon from './info_icon.svg'
 import about_image from './about_image.png'
 import contact_image from './contact_image.png'
+import lock_icon from './lock_icon.svg'
+import mail_icon from './mail_icon.svg'
+import person_icon from './person_icon.svg'
 
 
 
@@ -54,7 +57,10 @@ export const assets = {
     verified_icon,
     info_icon,
     contact_image,
-    about_image
+    about_image,
+    lock_icon,
+    mail_icon,
+    person_icon
     
 }
 
