@@ -28,28 +28,28 @@ const About = () => {
         </div>
 
         <div className='grid grid-cols-1 md:grid-cols-3  mb-20'>
-          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF]   hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
+          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF] active:bg-[#5F6FFF]  hover:text-white active:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
             <b>Efficiency:</b>
             <p>Streamlined appointment scheduling that fits into your busy lifestyle.</p>
           </div>
-          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF]   hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
+          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF] active:bg-[#5F6FFF]  hover:text-white active:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
             <b>Convenience:</b>
             <p>Access to a network of trusted healthcare professionals in your area.</p>
           </div>
-          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF]   hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
+          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF] active:bg-[#5F6FFF]  hover:text-white active:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
             <b>Personalization:</b>
             <p>Tailored recommendations and reminders to help you stay on top of your health.</p>
           </div>
 
-          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF] hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
+          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF] active:bg-[#5F6FFF]  hover:text-white active:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
             <b>Security:</b>
             <p>Your health data is encrypted and protected with the highest privacy standards.</p>
           </div>
-          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF] hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
+          <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF] active:bg-[#5F6FFF]  hover:text-white active:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
             <b>Affordability:</b>
             <p>Transparent pricing and budget-friendly care for every patient.</p>
           </div>
-        <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF] hover:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
+        <div className='border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] hover:bg-[#5F6FFF] active:bg-[#5F6FFF]  hover:text-white active:text-white transition-all duration-300 text-gray-600 cursor-pointer'>
            <b>24/7 Support:</b>
           <p>Round-the-clock assistance to ensure you're never alone in your healthcare journey.</p>
           </div>
