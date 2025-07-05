@@ -1,8 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { assets } from '../assets/assets';
 
 const About = () => {
   const [selectedBox, setSelectedBox] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // Tailwind md: breakpoint
+    };
+
+    handleResize(); // Run on mount
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const features = [
     {
@@ -33,17 +45,19 @@ const About = () => {
 
   return (
     <div>
+      {/* Heading */}
       <div className='text-center text-2xl pt-10 text-gray-500'>
         <p>
           ABOUT <span className='text-gray-700 font-medium'>US</span>
         </p>
       </div>
 
+      {/* Description Section */}
       <div className='my-10 flex flex-col md:flex-row gap-12'>
         <img
-          className='w-full md:max-w-[360px]'
+          className='w-full md:max-w-[360px] h-auto md:max-h-[300px] lg:max-h-none object-contain rounded'
           src={assets.about_image}
-          alt=''
+          alt='About'
         />
         <div className='flex flex-col justify-center gap-6 md:w-2/4 text-sm text-gray-600'>
           <p>
@@ -70,28 +84,32 @@ const About = () => {
         </div>
       </div>
 
+      {/* WHY CHOOSE US */}
       <div className='text-xl my-4'>
         <p>
           WHY <span className='text-gray-700 font-semibold'>CHOOSE US</span>
         </p>
       </div>
 
-      <div className='grid grid-cols-1 md:grid-cols-3 mb-20'>
-        {features.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => setSelectedBox(index)}
-            className={`
-              border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] cursor-pointer transition-all duration-300
-              text-gray-600 
-              md:hover:bg-[#5F6FFF] md:hover:text-white
-              ${selectedBox === index ? 'bg-[#5F6FFF] text-white md:bg-white md:text-gray-600' : ''}
-            `}
-          >
-            <b>{item.title}:</b>
-            <p>{item.desc}</p>
-          </div>
-        ))}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-20'>
+        {features.map((item, index) => {
+          const isSelected = selectedBox === index;
+
+          return (
+            <div
+              key={index}
+              onClick={() => isMobile && setSelectedBox(index)}
+              className={`
+                border px-10 md:px-16 py-8 sm:py-16 flex flex-col gap-5 text-[15px] cursor-pointer transition-all duration-300
+                ${isMobile && isSelected ? 'bg-[#5F6FFF] text-white' : 'text-gray-600'}
+                ${!isMobile ? 'hover:bg-[#5F6FFF] hover:text-white' : ''}
+              `}
+            >
+              <b>{item.title}:</b>
+              <p>{item.desc}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
