@@ -2,6 +2,7 @@ import validator from 'validator';
 import bcrypt from 'bcrypt';
 import {v2 as cloudinary} from 'cloudinary';
 import doctorModel from '../models/doctorModel.js';
+import jwt from 'jsonwebtoken';
 // api for adding doctor
 const addDoctor  = async (req,res)=>{
     try {
@@ -58,6 +59,10 @@ const addDoctor  = async (req,res)=>{
         
     }
 }
+
+  // admin login
+
+  
 
 
 
