@@ -17,7 +17,7 @@ const addDoctor  = async (req,res)=>{
             return res.json({success:false,message :"Missing Details"})
         }
 
-        // // validating email format
+        // // // validating email format
         if(validator.isEmail(email)){
             return res.json({success:false ,message:"Please enter a valid email"})
         }
@@ -85,7 +85,22 @@ const addDoctor  = async (req,res)=>{
 
   }
 
+   // API for get the doctors list for admin panel
+
+   const allDoctors = async (req,res) =>{
+     try {
+        const doctors = await doctorModel.find({}).select('-password');  // exclude the password
+        res.json({success:true,doctors})
+        
+     } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+     }
+
+   }
 
 
 
-export {addDoctor,adminLogin}
+
+export {addDoctor,adminLogin,allDoctors}
