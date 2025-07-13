@@ -15,4 +15,19 @@ const checkAvailability = async (req,res)=>{
     }
 }
 
-export {checkAvailability}
+const doctorList = async (req,res) => {
+    try {
+
+        const doctors = await doctorModel.find({}).select(['-password','-email']); // exclude email and password
+
+        res.json({success:true,doctors})
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+    }
+    
+}
+
+export {checkAvailability,doctorList}
