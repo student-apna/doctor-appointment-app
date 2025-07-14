@@ -1,14 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
+import { useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [token, setToken] = useState(true);
+  // const [token, setToken] = useState(true);
+  const {token,setToken} = useContext(AppContext);
   const dropdownRef = useRef();
 
   const [showMenu,setShowMenu] = useState(false);
+
+   const logout = ()=>{
+      setToken(false);
+      localStorage.removeItem('token');
+
+   }
 
 
   useEffect(() => {
@@ -26,10 +35,22 @@ const Navbar = () => {
       <img onClick={() => navigate('/')} className='w-44 cursor-pointer' src={assets.logo} alt="" />
 
       <ul className='hidden md:flex items-start gap-5 font-medium'>
-        <NavLink to='/'><li className='py-1'>HOME</li></NavLink>
-        <NavLink to='/doctors'><li className='py-1'>ALL DOCTORS</li></NavLink>
-        <NavLink to='/about'><li className='py-1'>ABOUT</li></NavLink>
-        <NavLink to='/contact'><li className='py-1'>CONTACT</li></NavLink>
+        <NavLink  to='/'>
+        <li className='py-1'>HOME</li>
+                 <hr className='border-none outline-none h-0.5 bg-[#5F6FFF] w-3/5 m-auto hidden' />
+        </NavLink>
+        <NavLink to='/doctors'>
+        <li className='py-1'>ALL DOCTORS</li>
+                 <hr className='border-none outline-none h-0.5 bg-[#5F6FFF] w-3/5 m-auto hidden' />
+        </NavLink>
+        <NavLink to='/about'>
+        <li className='py-1'>ABOUT</li>
+                 <hr className='border-none outline-none h-0.5 bg-[#5F6FFF] w-3/5 m-auto hidden' />
+        </NavLink>
+        <NavLink to='/contact'>
+        <li className='py-1'>CONTACT</li>
+                 <hr className='border-none outline-none h-0.5 bg-[#5F6FFF] w-3/5 m-auto hidden' />
+        </NavLink>
       </ul>
 
       <div className='flex items-center gap-5'>
@@ -54,7 +75,7 @@ const Navbar = () => {
                 <p onClick={() => navigate('/my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
                 <p onClick={() => navigate('/my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
                 <p onClick={() => navigate('/email-verify')} className='hover:text-black cursor-pointer'>Verify email</p>
-                <p onClick={() => setToken(false)} className='hover:text-black cursor-pointer'>Logout</p>
+                <p onClick={logout} className='hover:text-black cursor-pointer'>Logout</p>
               </div>
             </div>
           </div>

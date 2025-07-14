@@ -64,7 +64,7 @@ export const assets = {
     mail_icon,
     person_icon,
     menu_icon,
-    cross_icon
+    cross_icon,
     
 }
 
@@ -321,7 +321,7 @@ export const doctors = [
     fees: 550,
     address: {
       line1: '27, Lalbagh Road',
-      line2: 'Bangalore, Karnataka'
+      line2: 'Tambour, Sitapur'
     }
   }
 ]

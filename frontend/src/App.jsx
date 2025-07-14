@@ -12,9 +12,12 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import EmailVerify from './pages/EmailVerify';
 import ResetPassword from './pages/ResetPassword';
+import { ToastContainer, toast } from 'react-toastify';
 const App = () => {
   return (
     <div className='mx-4 sm:mx-[10%]' >
+      <ToastContainer/>
+     
       <Navbar/>
 
       <Routes>
