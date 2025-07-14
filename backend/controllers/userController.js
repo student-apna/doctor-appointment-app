@@ -38,17 +38,9 @@ import validator from 'validator';
          const user = await newUser.save();
 
         // generate token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
 
-        res.cookie('token', token, {
-            httpOnly: true,
-            // secure :process.env.NODE_ENV==='production' ,
-            // sameSite:process.env.NODE_ENV==='production'?
-            // 'none':'strict',
-            secure: true,
-            sameSite: 'none',
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        });
+       
 
         // send a welcome email
         const mailOptions = {
@@ -66,7 +58,7 @@ import validator from 'validator';
 
         await tranporter.sendMail(mailOptions);
 
-      return res.json({success:true,message:"user Successfully register"});
+      return res.json({success:true,message:"user Successfully register"},token);
 
 
     } catch (error) {
@@ -84,31 +76,18 @@ const loginUser = async (req,res)=>{
     try {
         const user = await userModel.findOne({email});
         if(!user){
-            return res.json({success:false ,message:"User not found"});
+            return res.json({success:false ,message:"User does not exist"});
         }
 
         const isMatch = await bcrypt.compare(password,user.password);
-        if(!isMatch){
-            return res.json({success:false,message:'Invalid Password'});
+        if(isMatch){
+            const token = jwt.sign({id:user._id},process.env.JWT_SECRET); 
+             res.json({success:true,token})
+        }
+        else{
+            res.json({success:false,message:"Invalid Credentials"})
         }
 
-        const token = jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'7d'});
-
-        res.cookie('token',token,{
-            httpOnly:true,
-             // secure :process.env.NODE_ENV==='production' ,
-            // sameSite:process.env.NODE_ENV==='production'?
-            // 'none':'strict',
-             secure :true,
-             sameSite :'none',
-            
-            maxAge:7 * 24 * 60 * 60 * 1000
-        })
-
-        return res.json({
-            success:true
-        })
-        
     } catch (error) {
         console.log(error);
         res.json({ success: false, message: error.message })
@@ -116,20 +95,23 @@ const loginUser = async (req,res)=>{
     }
 }
 
-const logoutUser = async (req,res) =>{
-    try {
-        res.clearCookie('token',{
-            httpOnly:true,
-            secure :process.env.NODE_ENV==='production' ,
-            sameSite:process.env.NODE_ENV==='production'?
-            'none':'strict',
-        })
+// API to get user data
 
-        return res.json({success:true,message:"Logged Out"});
+const getProfile = async (req,res)=>{
+     try {
+        const {userId} = req.body;
+        const userData = await userModel.findById(userId).select('-password');
+        res.json({success:true,userData})
         
-    } catch (error) {
-        return res.json({success:false,message:error.message})
-    }
+     } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message })
+        
+     }
 }
 
-export {registerUser,loginUser,logoutUser};
+
+
+
+
+export {registerUser,loginUser,getProfile};
