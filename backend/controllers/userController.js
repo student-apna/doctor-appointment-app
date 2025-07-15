@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import userModel from '../models/userModel.js';
 import tranporter from '../config/nodemailer.js';
 import validator from 'validator';
+import {v2 as cloudinary} from 'cloudinary';
 
 
 // API to register user
@@ -110,8 +111,42 @@ const getProfile = async (req,res)=>{
      }
 }
 
+// API to update the user Profile
+const updateProfile = async (req,res) =>{
+
+    try {
+
+        const {userId,name,phone,address,dob,gender} = req.body;
+        const imageFile = req.file;
+
+        if(!name || !phone || !address || !dob || !gender){
+            return res.json({success:false,message:"Data Missing"});
+        }
+
+        await userModel.findByIdAndUpdate(userId,{name,phone,address:JSON.parse(address),dob,gender});
+
+        if(imageFile){
+
+            //upload image to cloudinary
+            const imageUpload = await cloudinary.uploader.upload(imageFile.path,{resource_type:'image'});
+            const imageUrl  = imageUpload.secure_url;
+
+            await userModel.findByIdAndUpdate(userId,{imagge:imageUrl});
+
+        }
+
+        res.json({success:true,message:"Profile Updated"})
+        
+    } catch (error) {
+         console.log(error);
+        res.json({ success: false, message: error.message })
+        
+    }
+
+}
 
 
 
 
-export {registerUser,loginUser,getProfile};
+
+export {registerUser,loginUser,getProfile,updateProfile};

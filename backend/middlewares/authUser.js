@@ -13,8 +13,10 @@ import jwt from 'jsonwebtoken';
         
 
         const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
+         req.body = req.body || {}; 
         
         req.body.userId = tokenDecode.id;
+        console.log(req.body.userId);
         
 
         next();
