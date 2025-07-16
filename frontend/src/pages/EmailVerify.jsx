@@ -3,6 +3,7 @@ import { useRef } from "react";
 const EmailVerify = () => {
   const inputRefs = useRef([]);
 
+  
   const handleInput = (e, index) => {
     if (e.target.value.length > 0 && index < inputRefs.current.length - 1) {
       inputRefs.current[index + 1].focus();
@@ -25,6 +26,7 @@ const EmailVerify = () => {
     });
   };
 
+  
   return (
     <form className="min-h-[80vh] flex items-center">
       <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 rounded-xl text-zinc-600 text-sm shadow-lg">

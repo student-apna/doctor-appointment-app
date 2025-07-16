@@ -1,17 +1,39 @@
-import React, { useState, useEffect, useRef } from 'react';
+import  { useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   // const [token, setToken] = useState(true);
-  const {token,setToken,userData} = useContext(AppContext);
+  const {token,setToken,userData,backendUrl} = useContext(AppContext);
   const dropdownRef = useRef();
 
   const [showMenu,setShowMenu] = useState(false);
+
+
+    const sendVerificationOtp = async ()=>{
+      try {
+        axios.defaults.withCredentials = true;
+        const {data} = await axios.post(backendUrl+'/api/user/send-verify-otp');
+        if(data.success){
+          navigate('/email-verify');
+          toast.success(data.message);
+        }
+        else{
+           toast.error(data.error);
+        }
+        
+      } 
+      catch (error) {
+
+       toast.error(error.message)
+      }
+    }
 
    const logout = ()=>{
       setToken(false);
@@ -74,7 +96,11 @@ const Navbar = () => {
               <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-4'>
                 <p onClick={() => navigate('/my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
                 <p onClick={() => navigate('/my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
-                <p onClick={() => navigate('/email-verify')} className='hover:text-black cursor-pointer'>Verify email</p>
+                {
+                  !userData.isAccountVerified &&
+                   <p onClick={sendVerificationOtp} className='hover:text-black cursor-pointer'>Verify email</p>
+                }
+               
                 <p onClick={logout} className='hover:text-black cursor-pointer'>Logout</p>
               </div>
             </div>
