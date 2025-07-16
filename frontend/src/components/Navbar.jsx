@@ -15,6 +15,24 @@ const Navbar = () => {
 
   const [showMenu, setShowMenu] = useState(false);
 
+  const sendVerificationOtp = async () => {
+    setShowDropdown(false);
+    try {
+      axios.defaults.withCredentials = true;
+      const { data } = await axios.post(backendUrl + '/api/user/send-verify-otp', {}, { headers: { token } });
+      if (data.success) {
+        // navigate('/email-verify');
+        toast.success(data.message);
+      }
+      else {
+        toast.error(data.error);
+      }
+
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
 
 
   const logout = () => {
@@ -85,37 +103,22 @@ const Navbar = () => {
                 <p onClick={() => navigate('/my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
                 <p onClick={() => navigate('/my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
                 {
-                  
+
                   !userData.isAccountVerified &&
-                <p
-                  onClick={async () => {
-                    setShowDropdown(false);        
-                    navigate('/email-verify');
+                  <p
+                    onClick={() => {
+                      navigate('/email-verify');
+                      sendVerificationOtp();
 
-                    setTimeout(async () => {
-                      try {
-                        const { data } = await axios.post(
-                          backendUrl + '/api/user/send-verify-otp',
-                          {},
-                          { headers: { token } }
-                        );
-                        if (data.success) {
-                          toast.success(data.message);
-                        } else {
-                          toast.error(data.error );
-                        }
-                      } catch (error) {
-                        toast.error(error.message);
-                      }
-                    }, 0); 
-                  }}
-                  className='hover:text-black cursor-pointer'
-                >
-                  Verify Email
-                </p>
-}
+                     
+                    }}
+                    className='hover:text-black cursor-pointer'
+                  >
+                    Verify Email
+                  </p>
+                }
 
-                
+
 
                 <p onClick={logout} className='hover:text-black cursor-pointer'>Logout</p>
               </div>

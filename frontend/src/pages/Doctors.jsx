@@ -44,8 +44,8 @@ const Doctors = () => {
           {
             //copy the same ui of the doctor cart
             filterDoc.map((item,index)=>(
-                 <div onClick={()=>navigate(`/appointment/${item._id}`)} key={item._id} className="border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-[-10px] transition-all duration-500"> 
-                    <img className="bg-blue-50" src={item.image} alt="" />
+                 <div  onClick={()=>{navigate(`/appointment/${item._id}`); scrollTo(0,0)}}  key={index}  className="border-blue-200 rounded-xl overflow-hidden cursor-pointer hover:translate-[-10px] transition-all duration-500"> 
+                    <img className="bg-blue-50 w-full h-[250px] object-cover object-center" src={item.image} alt="" />
                     <div className="p-4">
                         <div className="flex items-center gap-2 text-sm text-center text-green-500">
                             <p className="w-2 h-2 rounded-full bg-green-500"></p> <p>Available</p>
