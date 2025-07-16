@@ -8,7 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   // const [token, setToken] = useState(true);
-  const {token,setToken} = useContext(AppContext);
+  const {token,setToken,userData} = useContext(AppContext);
   const dropdownRef = useRef();
 
   const [showMenu,setShowMenu] = useState(false);
@@ -54,14 +54,14 @@ const Navbar = () => {
       </ul>
 
       <div className='flex items-center gap-5'>
-        {token ? (
+        {token  && userData? (
           <div
             className='relative group cursor-pointer'
             onClick={() => setShowDropdown(prev => !prev)}
             ref={dropdownRef}
           >
             <div className="flex items-center gap-2">
-              <img className='w-8 h-8 rounded-full' src={assets.profile_pic} alt="" />
+              <img className='w-8 h-8 rounded-full' src={userData.image} alt="" />
               <img className='w-2.5' src={assets.dropdown_icon} alt="" />
             </div>
 
