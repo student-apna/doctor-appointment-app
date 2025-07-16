@@ -42,6 +42,7 @@ import mail_icon from './mail_icon.svg'
 import person_icon from './person_icon.svg'
 import menu_icon from './menu_icon.svg'
 import cross_icon from './cross_icon.png'
+import upload_icon from './upload_area.png'
 
 
 
@@ -65,6 +66,7 @@ export const assets = {
     person_icon,
     menu_icon,
     cross_icon,
+    upload_icon,
     
 }
 
