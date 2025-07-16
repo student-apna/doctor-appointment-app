@@ -143,6 +143,7 @@ const updateProfile = async (req,res) =>{
 
 }
 
+
 // Send Verification OTP to the User's Email
 const sendVerifyOtp = async (req,res)=>{
     try {
@@ -175,7 +176,44 @@ const sendVerifyOtp = async (req,res)=>{
 }
 
 
+//Verify the email using the OTP
+
+const verifyEmail = async (req,res)=>{
+    const {userId,otp} = req.body;
+    if(!userId || !otp){
+        return res.json({success:false,message:'Missing Details'});
+    }
+
+    try {
+        const user = await userModel.findById(userId);
+        if(!user){
+            return res.json({success:false,message:'User Not Found'});
+        }
+
+        if(user.verifyOtp==='' || user.verifyOtp!==otp){
+            return res.json({success:false,message:'Invalid OTP'})
+        }
+
+        if(user.verifyOtpExpireAt<Date.now()){
+            return res.json({success:false,message:'OTP Expired'})
+        }
+
+        user.isAccountVerified = true;
+        // reset
+        user.verifyOtp = '';
+        user.verifyOtpExpireAt = 0;
+        await user.save();
+
+        return res.json({success:true,message:'Email verified'});
+
+        
+    } catch (error) {
+        return res.json({success:false,message:error.message})
+        
+    }
+}
 
 
 
-export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp};
+
+export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp,verifyEmail};

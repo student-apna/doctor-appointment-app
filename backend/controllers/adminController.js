@@ -17,7 +17,7 @@ const addDoctor  = async (req,res)=>{
             return res.json({success:false,message :"Missing Details"})
         }
 
-        // // // validating email format
+         // validating email format
         if(validator.isEmail(email)){
             return res.json({success:false ,message:"Please enter a valid email"})
         }

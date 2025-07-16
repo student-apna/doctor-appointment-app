@@ -16,7 +16,6 @@ import jwt from 'jsonwebtoken';
          req.body = req.body || {}; 
         
         req.body.userId = tokenDecode.id;
-        console.log(req.body.userId);
         
 
         next();
