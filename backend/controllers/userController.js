@@ -4,8 +4,6 @@ import userModel from '../models/userModel.js';
 import tranporter from '../config/nodemailer.js';
 import validator from 'validator';
 import {v2 as cloudinary} from 'cloudinary';
-
-
 // API to register user
  const registerUser = async (req, res) => {
 
@@ -131,7 +129,7 @@ const updateProfile = async (req,res) =>{
             const imageUpload = await cloudinary.uploader.upload(imageFile.path,{resource_type:'image'});
             const imageUrl  = imageUpload.secure_url;
 
-            await userModel.findByIdAndUpdate(userId,{imagge:imageUrl});
+            await userModel.findByIdAndUpdate(userId,{image:imageUrl});
 
         }
 
@@ -145,8 +143,39 @@ const updateProfile = async (req,res) =>{
 
 }
 
+// Send Verification OTP to the User's Email
+const sendVerifyOtp = async (req,res)=>{
+    try {
+        const {userId} = req.body;
+        const user = await userModel.findById(userId);
+        if(user.isAccountVerified){
+            return res.json({success:false,message:'Account already verified'});
+        }
+
+        const otp = String(Math.floor(100000+Math.random()*900000));
+        user.verifyOtp = otp;
+        user.verifyOtpExpireAt = Date.now() + 2*60*1000;   // 2min
+        await user.save();
+
+        const mailOptions = {
+            from :process.env.SENDER_EMAIL,
+            to:user.email,
+            subject:'Account Verification OTP',
+            text:`Your OTP is ${otp}.Verify your account using this OTP`
+        }
+
+        await tranporter.sendMail(mailOptions);
+        res.json({success:true,message:'Verification OTP Send to Email'})
+
+        
+    } catch (error) {
+        res.json({success:false,message:error.message});
+        
+    }
+}
 
 
 
 
-export {registerUser,loginUser,getProfile,updateProfile};
+
+export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp};
