@@ -4,6 +4,9 @@ import userModel from '../models/userModel.js';
 import tranporter from '../config/nodemailer.js';
 import validator from 'validator';
 import {v2 as cloudinary} from 'cloudinary';
+import doctorModel from '../models/doctorModel.js';
+
+import { EMAIL_VERIFY_TEMPLATE,WELCOME_EMAIL_TEMPLATE } from '../config/emailTemplates.js';
 // API to register user
  const registerUser = async (req, res) => {
 
@@ -46,18 +49,12 @@ import {v2 as cloudinary} from 'cloudinary';
             from: process.env.SENDER_EMAIL,
             to: email, 
             subject: 'Welcome to Online Prescription App',
-            text: `Welcome to Online Prescription App!
-
-                  Your account has been successfully created with the email ID: ${email}.
-
-                  You can now book appointments, consult doctors, and access prescriptions online.
-
-                  Thank you for choosing us!`
+            html:WELCOME_EMAIL_TEMPLATE.replace("{{username}}",user.name)
         }
 
         await tranporter.sendMail(mailOptions);
 
-      return res.json({success:true,message:"user Successfully register"},token);
+      return res.json({success:true,token});
 
 
     } catch (error) {
@@ -162,7 +159,8 @@ const sendVerifyOtp = async (req,res)=>{
             from :process.env.SENDER_EMAIL,
             to:user.email,
             subject:'Account Verification OTP',
-            text:`Your OTP is ${otp}.Verify your account using this OTP`
+            // text:`Your OTP is ${otp}.Verify your account using this OTP`
+            html:EMAIL_VERIFY_TEMPLATE.replace("{{otp}}",otp).replace("{{email}}",user.email)
         }
 
         await tranporter.sendMail(mailOptions);
@@ -213,6 +211,23 @@ const verifyEmail = async (req,res)=>{
     }
 }
 
+// API for booking the appointment
+
+const bookAppointment = async (req,res)=>{
+    try {
+        const {userId,docId,slotDate,slotTime} = req.body;
+        
+        const docData = await doctorModel.findById(docId).select('-password');
+        if(!docData.available){
+            return res.json({success:false})
+        }
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+    }
+}
 
 
 
