@@ -1,5 +1,5 @@
 import express from 'express';
-import { getProfile, loginUser,  registerUser,sendVerifyOtp,updateProfile, verifyEmail } from '../controllers/userController.js';
+import { getProfile, loginUser,  registerUser,sendVerifyOtp,updateProfile, verifyEmail ,bookAppointment} from '../controllers/userController.js';
 import userAuth from '../middlewares/authUser.js';
 import upload from '../middlewares/multer.js';
 
@@ -12,6 +12,7 @@ userRouter.get('/get-profile',userAuth,getProfile);
 userRouter.post('/update-profile',upload.single('image'),userAuth,updateProfile);
 userRouter.post('/send-verify-otp',userAuth,sendVerifyOtp);
 userRouter.post('/verify-account',userAuth,verifyEmail);
+userRouter.post('/book-appointment',userAuth,bookAppointment);
 
 
 export default userRouter;

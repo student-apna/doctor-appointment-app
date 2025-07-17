@@ -7,6 +7,7 @@ import {v2 as cloudinary} from 'cloudinary';
 import doctorModel from '../models/doctorModel.js';
 
 import { EMAIL_VERIFY_TEMPLATE,WELCOME_EMAIL_TEMPLATE } from '../config/emailTemplates.js';
+import appointmentModel from '../models/appointmentModel.js';
 // API to register user
  const registerUser = async (req, res) => {
 
@@ -219,9 +220,53 @@ const bookAppointment = async (req,res)=>{
         
         const docData = await doctorModel.findById(docId).select('-password');
         if(!docData.available){
-            return res.json({success:false})
+            return res.json({success:false,message:"Doctor not available"})
         }
-        
+
+        let slots_booked = docData.slots_booked;
+
+        // checking slots available hai ya nhi
+        if(slots_booked[slotDate]){
+            if(slots_booked[slotDate].includes(slotTime)){
+                return res.json({success:false,message:"Slot not Available"});
+
+            }
+            else{
+                // slot free hai , book slot
+                slots_booked[slotDate].push(slotTime);
+            }
+        }
+        else{
+            slots_booked[slotDate] = []
+            slots_booked[slotDate].push(slotTime);
+        }
+
+        const userData = await userModel.findById(userId).select('-password');
+
+        // dremove this slot from doctor data
+
+        delete docData.slots_booked
+
+        const appointmentData = {
+            userId,
+            docId,
+            userData,
+            docData,
+            amount:docData.fees,
+            slotTime,
+            slotDate,
+            date:Date.now()
+        }
+
+        const newAppointment = new appointmentModel(appointmentData);
+
+        await newAppointment.save();
+
+        // also save new slots data in docdata
+        await doctorModel.findByIdAndUpdate(docId,{slots_booked});
+
+        res.json({success:true,message:"Appointment Booked"})
+    
     } catch (error) {
         console.log(error);
         res.json({success:false,message:error.message})
@@ -231,4 +276,4 @@ const bookAppointment = async (req,res)=>{
 
 
 
-export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp,verifyEmail};
+export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp,verifyEmail,bookAppointment};
