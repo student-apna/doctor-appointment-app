@@ -7,8 +7,6 @@ import { AppContext } from '../context/AppContext';
 import { useEffect } from 'react';
 
 const Login = () => {
- 
-
   const [state,setState] = useState('Sign Up');
   const navigate = useNavigate();
   const {backendUrl,token,setToken} = useContext(AppContext);

@@ -1,6 +1,6 @@
 // components/BookingSlots.jsx
 
-const BookingSlots = ({ docSlots, slotIndex, setSlotIndex, slotTime, setSlotTime, daysOfWeek }) => {
+const BookingSlots = ({ docSlots, slotIndex, setSlotIndex, slotTime, setSlotTime, daysOfWeek,bookAppointment }) => {
   return (
     <div className='sm:ml-72 mt-4 font-medium text-gray-700'>
       <p>Booking slots</p>
@@ -34,7 +34,7 @@ const BookingSlots = ({ docSlots, slotIndex, setSlotIndex, slotTime, setSlotTime
         }
       </div>
 
-      <button className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'>Book an appointment</button>
+      <button onClick={bookAppointment}  className='bg-primary text-white text-sm font-light px-14 py-3 rounded-full my-6'>Book an appointment</button>
     </div>
   );
 };
