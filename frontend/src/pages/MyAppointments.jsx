@@ -7,7 +7,7 @@ import axios from "axios";
 const MyAppointments = () => {
 
   // const {doctors} = useContext(AppContext)
-  const {backendUrl,token} = useContext(AppContext);
+  const {backendUrl,token,getDoctorData} = useContext(AppContext);
 
   const [appointments,setAppointments] = useState([]);
 
@@ -47,6 +47,7 @@ const MyAppointments = () => {
         if(data.success){
           toast.success(data.message);
           getUserAppointments();
+          getDoctorData(); // when user cancelled the appointment then the time slot automatically update without loading the page
         }
         else{
           toast.error(data.message)

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
@@ -8,6 +8,7 @@ import axios from 'axios';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [showDropdown, setShowDropdown] = useState(false);
   // const [token, setToken] = useState(true);
   const { token, setToken, userData, backendUrl } = useContext(AppContext);
@@ -41,6 +42,10 @@ const Navbar = () => {
     navigate('/');
 
   }
+
+  useEffect(() => {
+    setShowDropdown(false);
+  }, [location])
 
 
 
@@ -90,18 +95,18 @@ const Navbar = () => {
           >
             <div className="flex items-center gap-2">
               <img className='w-8 h-8 rounded-full' src={userData.image} alt="" />
-              <img className='w-2.5' src={assets.dropdown_icon} alt="" />
+              <img className={`w-2 transition-transform duration-300 ${showDropdown ? 'rotate-180' : ''}`} src={assets.dropdown_icon} alt="" />
             </div>
 
             <div
               className={`
-                absolute top-12 right-0 z-20 text-base font-medium text-gray-600
-                ${showDropdown ? 'block' : 'hidden'} group-hover:block
-              `}
+                           absolute top-12 right-0 z-20 text-base font-medium text-gray-600
+                           ${showDropdown ? 'block' : 'hidden'}
+                           `}
             >
               <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-3 p-4'>
-                <p onClick={() => navigate('/my-profile')} className='hover:text-black cursor-pointer'>My Profile</p>
-                <p onClick={() => navigate('/my-appointments')} className='hover:text-black cursor-pointer'>My Appointments</p>
+                <p onClick={() => { navigate('/my-profile'); }} className='cursor-pointer px-4 py-2 rounded hover:bg-[#5F6FFF] hover:text-white active:bg-[#5F6FFF] active:text-white'>My Profile</p>
+                <p onClick={() => { navigate('/my-appointments') }} className='cursor-pointer px-3 py-2 rounded hover:bg-[#5F6FFF] hover:text-white'>My Appointments</p>
                 {
 
                   !userData.isAccountVerified &&
@@ -110,9 +115,9 @@ const Navbar = () => {
                       navigate('/email-verify');
                       sendVerificationOtp();
 
-                     
+
                     }}
-                    className='hover:text-black cursor-pointer'
+                    className='cursor-pointer px-3 py-2 rounded hover:bg-[#5F6FFF] hover:text-white'
                   >
                     Verify Email
                   </p>
@@ -120,7 +125,7 @@ const Navbar = () => {
 
 
 
-                <p onClick={logout} className='hover:text-black cursor-pointer'>Logout</p>
+                <p onClick={logout} className='cursor-pointer px-3 py-2 rounded hover:bg-[#5F6FFF] hover:text-white'>Logout</p>
               </div>
             </div>
           </div>
