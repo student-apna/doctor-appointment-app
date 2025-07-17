@@ -5,9 +5,9 @@ import tranporter from '../config/nodemailer.js';
 import validator from 'validator';
 import {v2 as cloudinary} from 'cloudinary';
 import doctorModel from '../models/doctorModel.js';
-
-import { EMAIL_VERIFY_TEMPLATE,WELCOME_EMAIL_TEMPLATE } from '../config/emailTemplates.js';
 import appointmentModel from '../models/appointmentModel.js';
+import { EMAIL_VERIFY_TEMPLATE,WELCOME_EMAIL_TEMPLATE } from '../config/emailTemplates.js';
+
 // API to register user
  const registerUser = async (req, res) => {
 
@@ -276,4 +276,24 @@ const bookAppointment = async (req,res)=>{
 
 
 
-export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp,verifyEmail,bookAppointment};
+// API to get user appointments for frontend my-appointment page
+
+const appointmentList = async (req,res)=>{
+    try {
+
+        const {userId} = req.body;
+        const appointments = await appointmentModel.find({userId});
+
+        res.json({success:true,appointments})
+
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+    }
+}
+
+
+
+export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp,verifyEmail,bookAppointment,appointmentList};
