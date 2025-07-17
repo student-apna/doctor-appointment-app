@@ -11,6 +11,15 @@ const MyAppointments = () => {
 
   const [appointments,setAppointments] = useState([]);
 
+  // formate the date 17_7_2025 => 17 Jul 2025
+  const months = ["","Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec"];
+
+  const slotDateFormate = (slotDate)=>{
+    const dateArray = slotDate.split('_');
+    return dateArray[0]+" "+months[Number(dateArray[1])]+" "+dateArray[2];
+  }
+
+
 
   const getUserAppointments = async ()=>{
     try {
@@ -52,7 +61,7 @@ const MyAppointments = () => {
                 <p className="text-zinc-700 font-medium mt-1">Address:</p>
                 <p className="text-xs">{item.docData.address.line1}</p>
                 <p className="text-xs">{item.docData.address.line2}</p>
-                <p className="text-sm mt-1"> <span className="text-sm text-neutral-700 font-medium" >Date & Time:</span> {item.slotDate} | {item.slotTime}</p>
+                <p className="text-sm mt-1"> <span className="text-sm text-neutral-700 font-medium" >Date & Time:</span> {slotDateFormate(item.slotDate)} | {item.slotTime}</p>
               </div>
               {/* responsive ke liye hai bas ye empty div */}
               <div></div> 
