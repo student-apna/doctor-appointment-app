@@ -38,6 +38,29 @@ const MyAppointments = () => {
     }
   }
 
+  const cancelAppointment = async(appointmentId)=>{
+      
+    try {
+        // console.log(appointmentId);
+        const {data} =  await axios.post(backendUrl+'/api/user/cancle-appointment',{appointmentId},{headers:{token}});
+
+        if(data.success){
+          toast.success(data.message);
+          getUserAppointments();
+        }
+        else{
+          toast.error(data.message)
+        }
+        
+       } catch (error) {
+          console.log(error);
+          toast.error(error.message);
+        
+       }
+
+  }
+
+
   useEffect(()=>{
     if(token){
       getUserAppointments();
@@ -67,8 +90,13 @@ const MyAppointments = () => {
               <div></div> 
 
               <div className="flex flex-col gap-2 justify-end ">
-                <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-[#5F6FFF]  hover:text-white active:bg-[#5F6FFF] active:text-white focus:bg-[#5F6FFF] focus:text-white transition-all duration-300">Pay Online</button>
-                <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white active:bg-red-600 active:text-white focus:bg-red-600 focus:text-white transition-all duration-300">Cancel appointment</button>
+
+                {!item.cancelled && <button className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-[#5F6FFF]  hover:text-white active:bg-[#5F6FFF] active:text-white focus:bg-[#5F6FFF] focus:text-white transition-all duration-300">Pay Online</button>}
+                 
+                 {!item.cancelled &&  <button onClick={()=>cancelAppointment(item._id)} className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white active:bg-red-600 active:text-white focus:bg-red-600 focus:text-white transition-all duration-300">Cancel appointment</button>}
+
+                 {item.cancelled && <button className="sm:min-w-48 py-2 border border-red-500 rounded text-red-500"> Appointment cancelled</button>}
+               
               </div>
 
 
