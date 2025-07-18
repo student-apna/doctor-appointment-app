@@ -7,6 +7,7 @@ import {v2 as cloudinary} from 'cloudinary';
 import doctorModel from '../models/doctorModel.js';
 import appointmentModel from '../models/appointmentModel.js';
 import { EMAIL_VERIFY_TEMPLATE,WELCOME_EMAIL_TEMPLATE } from '../config/emailTemplates.js';
+import razorpay from 'razorpay';
 
 // API to register user
  const registerUser = async (req, res) => {
@@ -269,7 +270,7 @@ const bookAppointment = async (req,res)=>{
     
     } catch (error) {
         console.log(error);
-        res.json({success:false,message:error.message})
+        res.json({success:false,message:"Please select the Slot Time"})
         
     }
 }
@@ -320,7 +321,7 @@ const cancelAppointment = async(req,res)=>{
 
         await doctorModel.findByIdAndUpdate(docId,{slots_booked});
 
-        res.json({success:true,message:'Appointment Cancel'});
+        res.json({success:true,message:'Appointment has been cancelled'});
         
     } catch (error) {
         console.log(error);
@@ -330,6 +331,79 @@ const cancelAppointment = async(req,res)=>{
 
 }
 
+// API to confirm the Payment
+
+const confirmPayment = async (req,res)=>{
+    try {
+        const{userId,appointmentId} = req.body;
+
+        const appointmentData = await appointmentModel.findById(appointmentId);
+
+        // verify appointment user
+        if(appointmentData.userId !==userId){
+            return res.json({success:false,message:"Unauthorized action"})
+        }
+        await appointmentModel.findByIdAndUpdate(appointmentId,{payment:true});
+        res.send({success:true,message:"Payment confirmed"});
+
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+    }
+}
+
+//API to send Password Reset OTP
+
+const sendResetOtp = async (req,res)=>{
+
+    const {email} =  req.body;
+    if(!email){
+        return res.json({success:false,message:'Email Jaruri hai Janab'});
+    }
+
+    try {
+
+        const user = await userModel.findOne({email});
+        if(!user){
+            return res.json({success:false,message:'User not found'});
+        }
+
+        // send the otp
+        const otp = Math.floor(100000 + Math.random()*900000);
+        user.resetOtp = otp;
+        user.resetOtpExpireAt = Date.now() + 5*60*1000 // 5min mein expire
+        await user.save();
+
+        const mailOption = {
+            from:process.env.SENDER_EMAIL,
+            to:user.email,
+            subject:'Password Reset OTP',
+            html :PASSWORD_RESET_TEMPLATE.replace("{{otp}}",otp).replace("{{email}}",user.email)
+
+        }
+
+        await tranporter.sendMail(mailOption);
+
+        return res.json({success:true,message:'OTP send to your email'})
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+    }
 
 
-export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp,verifyEmail,bookAppointment,appointmentList,cancelAppointment};
+}
+
+
+
+
+
+
+
+
+
+
+export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp,verifyEmail,bookAppointment,appointmentList,cancelAppointment,confirmPayment,sendResetOtp};
