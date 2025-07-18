@@ -67,7 +67,7 @@ const MyAppointments = () => {
   const makePayment = async (appointmentId) => {
 
      try {
-      const {data} = await axios.post(`${backendUrl}/api/user/confirm-payment`, {appointmentId}, {headers: { token } });
+      const {data} = await axios.post(backendUrl+ '/api/user/confirm-payment', {appointmentId}, {headers: { token } });
 
       if (data.success) {
         toast.success("Payment confirmed!");
@@ -157,7 +157,7 @@ const MyAppointments = () => {
               <p className="text-sm text-gray-500 mt-2 mb-4">Use any UPI app to scan and pay</p>
 
               <button
-                onClick={()=>makePayment(item._id)}
+                onClick={()=>makePayment(selectedAppointment._id)}
                 className="bg-[#5F6FFF] text-white px-4 py-2 rounded hover:bg-blue-600 w-full"
               >
                 I have paid
