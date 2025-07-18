@@ -1,5 +1,6 @@
 
 import logo from './logo.svg'
+import logo2 from './logo2.png'
 import profile_pic from './profile_pic.jpg'
 import dropdown_icon from './dropdown_icon.svg'
 import group_profile from './group_profiles.png'
@@ -43,6 +44,9 @@ import person_icon from './person_icon.svg'
 import menu_icon from './menu_icon.svg'
 import cross_icon from './cross_icon.png'
 import upload_icon from './upload_area.png'
+import github_icon from './githubLogo.png'
+import linkedin_icon from './linkedinLogo.png'
+import QR_Code from './QRCode.jpg';
 
 
 
@@ -67,6 +71,10 @@ export const assets = {
     menu_icon,
     cross_icon,
     upload_icon,
+    github_icon,
+    linkedin_icon,
+    logo2,
+    QR_Code
     
 }
 
