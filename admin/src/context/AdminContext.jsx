@@ -8,6 +8,7 @@ const AdminContextProvider = (props)=>{
 
     const[aToken ,setAToken] = useState(localStorage.getItem('aToken')?localStorage.getItem('aToken'):'');
     const [doctors,setDoctors] = useState([]);
+    const [appointments,setAppointments] = useState([]);
     // jab localStorage mein token hoga tab login page hidden ho jayega, otherwise login page open hoga
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const getAllDoctors = async ()=>{
@@ -28,11 +29,48 @@ const AdminContextProvider = (props)=>{
         }
     }
 
+    const changedAvailability = async (docId) =>{
+        try {
+            const {data} = await axios.post(backendUrl+'/api/admin/change-availability',{docId},{headers:{aToken}});
+            if(data.success){
+                toast.success(data.message);
+                getAllDoctors();
+            } else{
+                toast.error(data.message)
+            }
+            
+        } catch (error) {
+            toast.error(error.message)
+            
+        }
+    }
+
+    const getAllAppointments = async () =>{
+        try {
+
+            const {data}  = await axios.get(backendUrl+'/api/admin/appointments',{headers:{aToken}});
+            if(data.success){
+                setAppointments(data.appointments);
+            }
+            else{
+                toast.error(data.message);
+            }
+
+            
+        } catch (error) {
+            toast.error(error.message)
+            
+        }
+    }
+
     const value = {
         aToken,setAToken,
         backendUrl,
         getAllDoctors,
-        doctors
+        doctors,
+        changedAvailability,
+        appointments,setAppointments,
+        getAllAppointments
         
     }
 
