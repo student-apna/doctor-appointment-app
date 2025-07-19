@@ -6,7 +6,7 @@ import validator from 'validator';
 import {v2 as cloudinary} from 'cloudinary';
 import doctorModel from '../models/doctorModel.js';
 import appointmentModel from '../models/appointmentModel.js';
-import { EMAIL_VERIFY_TEMPLATE,WELCOME_EMAIL_TEMPLATE } from '../config/emailTemplates.js';
+import { EMAIL_VERIFY_TEMPLATE,WELCOME_EMAIL_TEMPLATE,PASSWORD_RESET_TEMPLATE } from '../config/emailTemplates.js';
 import razorpay from 'razorpay';
 
 // API to register user
@@ -360,7 +360,7 @@ const sendResetOtp = async (req,res)=>{
 
     const {email} =  req.body;
     if(!email){
-        return res.json({success:false,message:'Email Jaruri hai Janab'});
+        return res.json({success:false,message:'Email Jaruri hai Janaab'});
     }
 
     try {
@@ -393,17 +393,43 @@ const sendResetOtp = async (req,res)=>{
         res.json({success:false,message:error.message})
         
     }
-
-
 }
 
+// API to reset User Password
 
+const resetPassword = async (req,res)=>{
+    const {email,otp,newPassword} = req.body;
 
+    if(!email || !otp || !newPassword){
+        return res.json({success:false,message:'Email,OTP and Password are required'})
+    }
 
+    try {
+       const user =  await userModel.findOne({email});
 
+       if(!user){
+         return res.json({success:false,message:'User not found'});
+       }
+       if(user.resetOtp==="" || user.resetOtp!==otp){
+         return res.json({success:false,message:'Invalid OTP'})
+       }
 
+       if(user.resetOtpExpireAt <Date.now()){
+         return res.json({success:false,message:'OTP Expired'});
+       }
 
+       const hashedPassword = await bcrypt.hash(newPassword,10);
+       user.password = hashedPassword;
+       user.resetOtp = '';
+       user.resetOtpExpireAt = 0;
+       await user.save();
+       return res.json({success:true,message:'Password has been reset successfully'})
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+    }
+}
 
-
-
-export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp,verifyEmail,bookAppointment,appointmentList,cancelAppointment,confirmPayment,sendResetOtp};
+export {registerUser,loginUser,getProfile,updateProfile,sendVerifyOtp,verifyEmail,bookAppointment,appointmentList,cancelAppointment,confirmPayment,sendResetOtp,resetPassword};
