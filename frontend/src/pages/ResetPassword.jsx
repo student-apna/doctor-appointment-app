@@ -49,6 +49,13 @@ const ResetPassword = () => {
     }
   }
 
+  const onSubmitOTP = async(e)=>{
+     e.preventDefault();
+     const otpArray = inputRefs.current.map(e=>e.value);
+     setOtp(otpArray.join(''));
+     setIsOtpSubmitted(true);
+  }
+
 
 
 
@@ -90,7 +97,7 @@ const ResetPassword = () => {
 
       {/* --- OTP Input Form --- */}
       {!isOtpSubmitted && isEmailSent && (
-        <form className="min-h-[80vh] flex items-center">
+        <form  onSubmit={onSubmitOTP} className="min-h-[80vh] flex items-center">
           <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 rounded-xl text-zinc-600 text-sm shadow-lg">
             <p className="text-2xl font-semibold">Reset Password OTP</p>
             <p>Enter the 6-digit code sent to your email id.</p>
