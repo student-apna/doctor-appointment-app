@@ -423,7 +423,9 @@ const resetPassword = async (req,res)=>{
        user.resetOtp = '';
        user.resetOtpExpireAt = 0;
        await user.save();
-       return res.json({success:true,message:'Password has been reset successfully'})
+
+       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+       return res.json({success:true,message:'Password has been reset successfully',token})
         
     } catch (error) {
         console.log(error);
