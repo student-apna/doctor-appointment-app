@@ -50,6 +50,7 @@ import QR_Code from './QRCode.jpg';
 
 
 
+
 export const assets = {
   
     logo,
@@ -74,7 +75,7 @@ export const assets = {
     github_icon,
     linkedin_icon,
     logo2,
-    QR_Code
+    QR_Code,
     
 }
 
