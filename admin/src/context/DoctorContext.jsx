@@ -1,8 +1,9 @@
 import { createContext } from "react";
 import { useState } from "react";
-export const DoctorContext = createContext();
+
 import axios from 'axios';
-import toast from 'react-toastify';
+import {toast} from 'react-toastify';
+export const DoctorContext = createContext();
 
 const DoctorContextProvider = (props)=>{
 
@@ -14,11 +15,11 @@ const DoctorContextProvider = (props)=>{
      const getAppointments = async()=>{
         try {
 
-            const {data} = await axios.get(backendUrl+'/api/doctor/profile',{headers:{dToken}});
+            const {data} = await axios.get(backendUrl+'/api/doctor/appointments',{headers:{dToken}});
 
             if(data.success){
                 setAppointments(data.appointments.reverse());
-                console.log(data.appointments.reverse());
+                console.log(data.appointments.reverse())
             }
             else{
                 toast.error(data.message);

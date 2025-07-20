@@ -36,7 +36,7 @@ const Login = () => {
                   if(data.success){
                     localStorage.setItem('dToken',data.token);
                     setDToken(data.token);
-                    console.log(data.token);
+                    // console.log(data.token);
                     
                 }
                 else{
