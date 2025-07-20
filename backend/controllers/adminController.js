@@ -20,9 +20,9 @@ const addDoctor  = async (req,res)=>{
         }
 
          // validating email format
-        if(validator.isEmail(email)){
-            return res.json({success:false ,message:"Please enter a valid email"})
-        }
+        // if(validator.isEmail(email)){
+        //     return res.json({success:false ,message:"Please enter a valid email"})
+        // }
 
         // validating strong password
         if(password.length < 8){
