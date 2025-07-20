@@ -7,7 +7,7 @@ import { assets } from "../../assets/assets";
 
 const DoctorAppointments = () => {
 
-    const {dToken,appointments,getAppointments} = useContext(DoctorContext);
+    const {dToken,appointments,getAppointments,completeAppointment,cancelAppointment} = useContext(DoctorContext);
     const {calculateAge,slotDateFormate,currency} = useContext(AppContext);
 
     useEffect(()=>{
@@ -50,8 +50,8 @@ const DoctorAppointments = () => {
                        <p>{currency} {item.amount}</p>
 
                        <div className="flex ">
-                        <img className="w-10 cursor-pointer" src={assets.cancel_icon} alt="" />
-                        <img className="w-10 cursor-pointer" src={assets.tick_icon} alt="" />
+                        <img onClick={()=>cancelAppointment(item._id)} className="w-10 cursor-pointer" src={assets.cancel_icon} alt="" />
+                        <img onClick={()=>completeAppointment(item._id)} className="w-10 cursor-pointer" src={assets.tick_icon} alt="" />
                        </div>
 
                     </div>

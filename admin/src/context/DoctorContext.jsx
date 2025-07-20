@@ -81,7 +81,9 @@ const DoctorContextProvider = (props)=>{
         dToken,setDToken,
         backendUrl,
         appointments,setAppointments,
-        getAppointments
+        getAppointments,
+        completeAppointment,
+        cancelAppointment
 
         
     }
