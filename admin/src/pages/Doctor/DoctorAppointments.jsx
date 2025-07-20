@@ -49,7 +49,7 @@ const DoctorAppointments = () => {
                        <p>{slotDateFormate(item.slotDate)},{item.slotTime}</p>
                        <p>{currency} {item.amount}</p>
 
-                       <div className="flex">
+                       <div className="flex ">
                         <img className="w-10 cursor-pointer" src={assets.cancel_icon} alt="" />
                         <img className="w-10 cursor-pointer" src={assets.tick_icon} alt="" />
                        </div>
