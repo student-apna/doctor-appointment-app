@@ -84,4 +84,28 @@ const appointmentsDoctor = async (req,res)=>{
     }
 }
 
+// API to mark appointment completer for doctor panel
+
+const appointmentComplete = async ()=>{
+    try {
+
+        const {docId,appointmentId} = req.body;
+
+        const appointmentData = await appointmentModel.findById(appointmentId);
+
+         if(appointmentData && appointmentData.docId ==docId){
+            await appointmentModel.findByIdAndUpdate(appointmentId,{isCompleted:true});
+            return res.json({success:true,message:"Appointment Completed"});
+         }
+         else{
+            return res.json({success:false,message:"Mark again"})
+         }
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+    }
+}
+
 export {checkAvailability,doctorList,loginDoctor,appointmentsDoctor}
