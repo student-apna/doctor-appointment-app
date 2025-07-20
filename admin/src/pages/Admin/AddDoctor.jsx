@@ -178,6 +178,7 @@ const AddDoctor = () => {
         <div className="mt-6">
           <button
             type="submit"
+            onClick={()=>scrollTo(0,0)}
             className="px-10 py-3 bg-[#5F6FFF] text-white mt-4 text-white rounded-full"
           >
             Add doctor
