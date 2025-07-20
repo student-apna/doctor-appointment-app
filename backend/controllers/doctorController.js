@@ -132,4 +132,4 @@ const appointmentCancel = async ()=>{
     }
 }
 
-export {checkAvailability,doctorList,loginDoctor,appointmentsDoctor}
+export {checkAvailability,doctorList,loginDoctor,appointmentsDoctor,appointmentComplete,appointmentCancel}
