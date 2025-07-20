@@ -144,7 +144,7 @@ const doctorDashboard = async(req,res)=>{
 
         appointments.map((item)=>{
             if(item.isCompleted || item.payment){
-                earnings+=item.payment;
+                earnings+=item.amount;
             }
 
         })
@@ -166,6 +166,24 @@ const doctorDashboard = async(req,res)=>{
 
         }
         res.json({success:true,dashData})
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+    }
+}
+
+// API to get Doctor profile for doctor panel
+
+const doctorProfile = async(req,res)=>{
+    try {
+
+        const {docId} = req.body;
+
+        const profileData = await doctorModel.findById(docId).select('-password');
+
+        res.json({success:true,profileData})
         
     } catch (error) {
         console.log(error);
