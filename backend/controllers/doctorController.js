@@ -86,7 +86,7 @@ const appointmentsDoctor = async (req,res)=>{
 
 // API to mark appointment completer for doctor panel
 
-const appointmentComplete = async ()=>{
+const appointmentComplete = async (req,res)=>{
     try {
 
         const {docId,appointmentId} = req.body;
@@ -110,7 +110,7 @@ const appointmentComplete = async ()=>{
 
 // API to cancel appointment complete for doctor panel
 
-const appointmentCancel = async ()=>{
+const appointmentCancel = async (req,res)=>{
     try {
 
         const {docId,appointmentId} = req.body;
@@ -132,4 +132,46 @@ const appointmentCancel = async ()=>{
     }
 }
 
-export {checkAvailability,doctorList,loginDoctor,appointmentsDoctor,appointmentComplete,appointmentCancel}
+// API to get the dashboard data for doctor panel
+
+const doctorDashboard = async(req,res)=>{
+    try {
+
+        const {docId} = req.body;
+        const appointments = await appointmentModel.find({docId});
+
+        let earnings = 0;
+
+        appointments.map((item)=>{
+            if(item.isCompleted || item.payment){
+                earnings+=item.payment;
+            }
+
+        })
+
+        let patients = [] // count unique patients
+
+        appointments.map((item)=>{
+            if(!patients.includes(item.userId)){
+                patients.push(item.userId);
+            }
+
+        })
+
+        const dashData = {
+            earnings,
+            appointments:appointments.length,
+            patients:patients.length,
+            latestAppointments :appointments.reverse().slice(0,5),
+
+        }
+        res.json({success:true,dashData})
+        
+    } catch (error) {
+        console.log(error);
+        res.json({success:false,message:error.message})
+        
+    }
+}
+
+export {checkAvailability,doctorList,loginDoctor,appointmentsDoctor,appointmentComplete,appointmentCancel,doctorDashboard}
