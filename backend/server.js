@@ -18,7 +18,7 @@ connectCloudinary()
 // middlewares
 app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174','https://doctor-appointment-app-admin-6jja.onrender.com/','https://doctor-appointment-app-frontend-d1i9.onrender.com/'],
+  origin: ['https://doctor-appointment-app-admin-6jja.onrender.com/','https://doctor-appointment-app-frontend-d1i9.onrender.com/'],
   credentials: true
 }));
 // api endpoints
