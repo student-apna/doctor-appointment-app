@@ -97,7 +97,7 @@ const Navbar = () => {
        
         {!token &&
            <button
-          onClick={() => window.location.href = "http://localhost:5174"}
+          onClick={() => window.location.href = "https://doctor-appointment-app-admin-6jja.onrender.com"}
           className="border border-gray-300 rounded-full px-6 py-1.5 text-sm md:text-xs font-medium text-black hover:bg-gray-100 transition duration-200"
         >
           Admin 
