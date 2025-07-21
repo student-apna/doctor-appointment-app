@@ -1,6 +1,7 @@
 
 import logo from './logo.svg'
 import logo2 from './logo2.png'
+import logo4 from './logo4.png';
 import profile_pic from './profile_pic.jpg'
 import dropdown_icon from './dropdown_icon.svg'
 import group_profile from './group_profiles.png'
@@ -76,6 +77,7 @@ export const assets = {
     linkedin_icon,
     logo2,
     QR_Code,
+    logo4
     
 }
 

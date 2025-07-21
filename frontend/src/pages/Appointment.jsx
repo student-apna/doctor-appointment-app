@@ -27,6 +27,7 @@ const Appointment = () => {
   }
 
   const getAvialableSlots = async () => {
+     if (!docInfo || !docInfo.slots_booked) return;
     // first clear the previous slots
     setDocSlots([]);
 

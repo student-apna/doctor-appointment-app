@@ -114,7 +114,7 @@ const MyAppointments = () => {
 
               <div className="flex flex-col gap-2 justify-end ">
 
-                {!item.cancelled && !item.payment && (
+                {!item.cancelled && !item.payment && !item.isCompleted && (
                   <button
                     onClick={() => setSelectedAppointment(item)}
                     className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-[#5F6FFF] hover:text-white transition-all duration-300"
@@ -123,7 +123,7 @@ const MyAppointments = () => {
                   </button>
                 )}
 
-                {!item.cancelled && item.payment && (
+                {!item.cancelled && item.payment && !item.isCompleted && (
                   <button
                     disabled
                     className="text-sm sm:min-w-48 py-2 border rounded text-green-600 border-green-500 cursor-default"
@@ -133,9 +133,10 @@ const MyAppointments = () => {
                 )}
 
 
-                {!item.cancelled && <button onClick={() => cancelAppointment(item._id)} className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white active:bg-red-600 active:text-white focus:bg-red-600 focus:text-white transition-all duration-300">Cancel appointment</button>}
+                {!item.cancelled && !item.isCompleted && <button onClick={() => cancelAppointment(item._id)} className="text-sm text-stone-500 text-center sm:min-w-48 py-2 border rounded hover:bg-red-600 hover:text-white active:bg-red-600 active:text-white focus:bg-red-600 focus:text-white transition-all duration-300">Cancel appointment</button>}
 
-                {item.cancelled && <button className="sm:min-w-48 py-2 border border-red-500 rounded text-red-500"> Appointment cancelled</button>}
+                {item.cancelled && !item.isCompleted && <button className="sm:min-w-48 py-2 border border-red-500 rounded text-red-500"> Appointment cancelled</button>}
+                { item.isCompleted && <button className="sm:min-w-48 py-2 border border-green-500 rounded text-green-500"> Appointment completed</button>}
 
               </div>
 

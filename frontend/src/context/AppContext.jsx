@@ -19,7 +19,7 @@ const AppContextProvider = (props) =>{
         try {
             const{data} = await axios.get(backendUrl+'/api/doctor/list');
             if(data.success){
-                setDoctor(data.doctors);
+                setDoctor(data.doctors.reverse());
             }else{
               toast.error(data.message);
             }
@@ -38,7 +38,7 @@ const AppContextProvider = (props) =>{
 
             if(data.success){
                 setUserData(data.userData);
-                console.log(userData.gender);
+                console.log(data.userData.gender);
             }
             else{
                 toast.error(data.message)

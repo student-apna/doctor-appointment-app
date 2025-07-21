@@ -84,10 +84,31 @@ const Navbar = () => {
           <li className='py-1'>CONTACT</li>
           <hr className='border-none outline-none h-0.5 bg-[#5F6FFF] w-3/5 m-auto hidden' />
         </NavLink>
+        {/* <button
+          onClick={() => window.location.href = "http://localhost:5174/login"}
+          className="border border-gray-300 rounded-full px-2 py-1 text-xs font-small text-black hover:bg-gray-100 transition duration-200"
+        >
+          Admin Panel
+        </button> */}
+
       </ul>
 
       <div className='flex items-center gap-5'>
+       
+        {!token &&
+           <button
+          onClick={() => window.location.href = "http://localhost:5174"}
+          className="border border-gray-300 rounded-full px-6 py-1.5 text-sm md:text-xs font-medium text-black hover:bg-gray-100 transition duration-200"
+        >
+          Admin 
+        </button>
+        }
+       
+
+
+
         {token && userData ? (
+
           <div
             className='relative group cursor-pointer'
             onClick={() => setShowDropdown(prev => !prev)}
@@ -135,7 +156,7 @@ const Navbar = () => {
 
         <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
         {/* --------Mobile Menu------ */}
-        <div className={` ${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all`}>
+        <div className={`fixed top-0 right-0 h-full z-40 bg-white shadow-md transform transition-transform duration-300 ease-in-out md:hidden ${showMenu ? 'translate-x-0 w-[70%]' : 'translate-x-full w-0 overflow-hidden'}`}>
           <div className='flex items-center justify-between px-5 py-6'>
             <img className='w-36' src={assets.logo} alt="" />
             <img className='w-7' onClick={() => setShowMenu(false)} src={assets.cross_icon} alt="" />
